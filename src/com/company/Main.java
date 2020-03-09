@@ -1,7 +1,6 @@
 package com.company;
 
-        import java.util.Arrays;
-        import java.util.Scanner;
+import java.util.Scanner;
 
 //task#1 Приветствовать любого пользователя при вводе его имени через командную строку.
 
@@ -206,6 +205,7 @@ public class Main {
 }*/
 
 //6.5. Все трехзначные числа, в десятичной записи которых нет одинаковых цифр
+//1 variant:
 
 /*public class Main {
     public static void main(String[] args) {
@@ -215,8 +215,7 @@ public class Main {
         int[] arr = new int[n];
         System.out.println("Enter your numbers: ");
         for (int i = 0; i < n; i++) {
-            int val = scanNumber.nextInt();
-            arr[i] = val;
+            arr[i] = scanNumber.nextInt();
         }
         for (int i = 0; i < n; i++) {
             int a1 = arr[i] / 100;
@@ -224,7 +223,33 @@ public class Main {
             int a3 = arr[i] % 100 % 10;
             if ((arr[i] > 99) && (arr[i] < 1000)) {
                 if (a1 != a2 && a1 != a3 && a2 != a3) {
-                    System.out.println("3 digits: " + arr[i]);
+                    System.out.println("Number with different digits: " + arr[i]);
+                }
+            }
+        }
+    }
+}*/
+
+//2 variant:
+
+/*public class Main {
+    public static void main(String[] args) {
+        System.out.println("How many n numbers do you want to enter? ");
+        Scanner scanNumber = new Scanner(System.in);
+        int n = scanNumber.nextInt();
+        String[] arr = new String[n];
+        System.out.println("Enter your numbers: ");
+        for (int i = 0; i < n; i++) {
+            arr[i] = scanNumber.next();
+        }
+        for (int i = 0; i < n; i++) {
+            String[] digits = arr[i].split("");
+            if (digits.length == 3) {
+                Integer a0 = Integer.parseInt(digits[0]);
+                Integer a1 = Integer.parseInt(digits[1]);
+                Integer a2 = Integer.parseInt(digits[2]);
+                if (!a0.equals(a1) && !a0.equals(a2) && !a1.equals(a2)) {
+                    System.out.println("Number with different digits: " + arr[i]);
                 }
             }
         }
@@ -232,6 +257,7 @@ public class Main {
 }*/
 
 //6.6. «Счастливые» числа.
+//1 variant:
 
 /*public class Main {
     public static void main(String[] args) {
@@ -241,8 +267,7 @@ public class Main {
         int[] arr = new int[n];
         System.out.println("Enter your numbers: ");
         for (int i = 0; i < n; i++) {
-            int val = scanNumber.nextInt();
-            arr[i] = val;
+            arr[i] = scanNumber.nextInt();
         }
         for (int i = 0; i < n; i++) {
             int a1 = arr[i] / 1000;
@@ -252,15 +277,39 @@ public class Main {
             int sum1 = a1 + a2;
             int sum2 = a3 + a4;
             if ((arr[i] > 999) && (arr[i] < 10000)) {
-                //System.out.println("4 digits: " + arr[i]);
-                {
-                    if (sum1 == sum2) {
-                        System.out.println("Happy numbers: " + arr[i]);
-                    }
+                if (sum1 == sum2) {
+                    System.out.println("Happy number: " + arr[i]);
                 }
-
             }
-
         }
     }
 }*/
+
+//2 variant:
+
+/*
+public class Main {
+    public static void main(String[] args) {
+        System.out.println("How many n numbers do you want to enter? ");
+        Scanner scanNumber = new Scanner(System.in);
+        int n = scanNumber.nextInt();
+        String[] arr = new String[n];
+        System.out.println("Enter your numbers: ");
+        for (int i = 0; i < n; i++) {
+            arr[i] = scanNumber.next();
+        }
+        for (int i = 0; i < n; i++) {
+            String[] digits = arr[i].split("");
+            if (digits.length == 4) {
+                Integer a0 = Integer.parseInt(digits[0]);
+                Integer a1 = Integer.valueOf(digits[1]);
+                Integer a2 = Integer.valueOf(digits[2]);
+                Integer a3 = Integer.valueOf(digits[3]);
+                if (a0 + a1 == a2 + a3) {
+                    System.out.println("Happy number: " + arr[i]);
+                }
+            }
+        }
+    }
+}
+*/
