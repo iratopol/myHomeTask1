@@ -1,5 +1,8 @@
 package com.company;
 
+import jdk.nashorn.internal.parser.Parser;
+
+import java.util.Arrays;
 import java.util.Scanner;
 
 //task#1 Приветствовать любого пользователя при вводе его имени через командную строку.
@@ -313,3 +316,170 @@ public class Main {
     }
 }
 */
+
+//BLOCK# 2
+
+//Ввести n чисел с консоли.
+//task# 1. Найти самое короткое и самое длинное число. Вывести найденные числа и их длину
+
+/*
+public class Main {
+    public static void main(String[] args) {
+        System.out.println("How many n numbers do you want to enter? ");
+        Scanner scanNumbers = new Scanner(System.in);
+        int n = scanNumbers.nextInt();
+        String [] arr = new String[n];
+        System.out.println("Enter your numbers: ");
+        for (int i = 0; i < n; i++) {
+            arr[i] = scanNumbers.next();
+        }
+        int min = Integer.parseInt(String.valueOf(arr[0].length()));
+        for (int i = 0; i < n; i++) {
+            System.out.println("Number and number length: " + arr[i] + " - " + arr[i].length());
+            int digits = Integer.parseInt(String.valueOf(arr[i].length()));
+            if (min > digits) {
+                min = digits;
+            }
+        }
+        System.out.println("Min number length: " + min);
+    }
+}
+*/
+
+/*public class Main {
+    public static void main(String[] args) {
+        System.out.println("How many n numbers do you want to enter? ");
+        Scanner scanNumbers = new Scanner(System.in);
+        int n = scanNumbers.nextInt();
+        String [] arr = new String[n];
+        System.out.println("Enter your numbers: ");
+        for (int i = 0; i < n; i++) {
+            arr[i] = scanNumbers.next();
+        }
+        int max = Integer.parseInt(String.valueOf(arr[0].length()));
+        for (int i = 0; i < n; i++) {
+            int digits = Integer.parseInt(String.valueOf(arr[i].length()));
+            System.out.println("Number and number length: " + arr[i] + " " + arr[i].length());
+            if (max<digits) {
+                max = digits;
+            }
+        }
+        System.out.println("Max number length: " + max);
+    }
+}*/
+
+//task# 2. Упорядочить и вывести числа в порядке возрастания (убывания) значений их длины.
+
+/*
+public class Main {
+    public static void main(String[] args) {
+        System.out.println("How many n numbers do you want to enter? ");
+        Scanner scanNumber = new Scanner(System.in);
+        int n = scanNumber.nextInt();
+        String [] arr = new String[n];
+        System.out.println("Enter your numbers: ");
+        for (int i = 0; i < n; i++) {
+            arr[i] = scanNumber.next();
+        }
+        for (int i =arr.length-1 ; i >=0; i--) {
+            for (int j = 0; j < i; j++) {
+                if (arr[j].length() > arr[j + 1].length()) {
+                    String temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                }
+            }
+        }
+        System.out.println("Numbers length by ascending: " + Arrays.toString(arr));
+        for (int i = 0; i <arr.length/2 ; i++) {
+            String temp = arr[i];
+            arr[i] = arr[arr.length - i - 1];
+            arr[arr.length - i - 1] = temp;
+        }System.out.println("Numbers length by descending: " + Arrays.toString(arr));
+    }
+}
+*/
+
+//task# 3. Вывести на консоль те числа, длина которых меньше (больше) средней, а также длину.
+
+/*
+public class Main {
+    public static void main(String[] args) {
+        System.out.println("How many n numbers do you want to enter? ");
+        Scanner scanNumbers = new Scanner(System.in);
+        int n = scanNumbers.nextInt();
+        String[] arr = new String[n];
+        System.out.println("Enter your numbers: ");
+        for (int i = 0; i < n; i++) {
+            arr[i] = scanNumbers.next();
+        }
+        int sum = 0;
+        int n1 = arr.length;
+        for (int i = 0; i < n; i++) {
+            int x = Integer.parseInt(String.valueOf(arr[i].length()));
+            sum += x;
+        }
+        int aver = sum / n1;
+        System.out.println("Length`s sum: " + sum);
+        System.out.println("Average length : " + aver);
+        for (int i = 0; i < n; i++) {
+            int x = Integer.parseInt(String.valueOf(arr[i].length()));
+            if (x>aver){
+                System.out.println("Number`s length more than average: " + arr[i] + " " + x);
+            }
+            else if (x<aver){
+                System.out.println("Number`s length less than average: " + arr[i] + " " + x);
+            }
+        }
+    }
+}
+*/
+
+//task#6. Найти число, цифры в котором идут в строгом порядке возрастания. Если таких чисел несколько, найти первое из них.
+
+/*public class Main {
+    public static void main(String[] args) {
+        System.out.println("How many n numbers do you want to enter? ");
+        Scanner scanNumbers = new Scanner(System.in);
+        int n = scanNumbers.nextInt();
+        String[] arr = new String[n];
+        System.out.println("Enter your numbers: ");
+        for (int i = 0; i < n; i++) {
+            arr[i] = scanNumbers.next();
+        }
+        for (String i : arr) {
+            byte[] a = i.getBytes();
+            byte[] b = i.getBytes();
+            Arrays.sort(b);
+            if (Arrays.equals(a, b)) {
+                System.out.println(i);
+                break;
+            }
+        }
+    }
+}*/
+
+//task# 8. Вывести числа от 1 до k в виде матрицы N x N слева направо и сверху вниз.
+
+/*
+public class Main {
+    public static void main(String[] args) {
+        System.out.println("How many n numbers do you want to enter? ");
+        Scanner scanNumber = new Scanner(System.in);
+        int n = scanNumber.nextInt();
+        String[] arr = new String[n];
+        System.out.println("Enter your numbers: ");
+        for (int i = 0; i < n; i++) {
+            arr[i] = scanNumber.next();
+        }
+        for (int i = 0; i < n; i++) {
+            System.out.println(Arrays.toString(arr[i].split("")));
+            System.out.println();
+        }
+    }
+}
+*/
+
+
+
+
