@@ -1,7 +1,6 @@
 package com.company;
 
-import jdk.nashorn.internal.parser.Parser;
-
+import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -81,7 +80,6 @@ import java.util.Scanner;
     }
         }*/
 
-
 //task#5 Ввести целые числа как аргументы командной строки, подсчитать их суммы (произведения) и вывести результат на консоль.
 
 /*public class Main {
@@ -97,7 +95,6 @@ import java.util.Scanner;
     }
 
 }*/
-
 
 //task#6 Ввести с консоли n целых чисел. На консоль вывести:
 //6.1. Четные и нечетные числа.
@@ -247,12 +244,13 @@ public class Main {
         }
         for (int i = 0; i < n; i++) {
             String[] digits = arr[i].split("");
+            System.out.println(digits[1]);
             if (digits.length == 3) {
                 Integer a0 = Integer.parseInt(digits[0]);
                 Integer a1 = Integer.parseInt(digits[1]);
                 Integer a2 = Integer.parseInt(digits[2]);
                 if (!a0.equals(a1) && !a0.equals(a2) && !a1.equals(a2)) {
-                    System.out.println("Number with different digits: " + arr[i]);
+                    //System.out.println("Number with different digits: " + arr[i]);
                 }
             }
         }
@@ -322,30 +320,6 @@ public class Main {
 //Ввести n чисел с консоли.
 //task# 1. Найти самое короткое и самое длинное число. Вывести найденные числа и их длину
 
-/*
-public class Main {
-    public static void main(String[] args) {
-        System.out.println("How many n numbers do you want to enter? ");
-        Scanner scanNumbers = new Scanner(System.in);
-        int n = scanNumbers.nextInt();
-        String [] arr = new String[n];
-        System.out.println("Enter your numbers: ");
-        for (int i = 0; i < n; i++) {
-            arr[i] = scanNumbers.next();
-        }
-        int min = Integer.parseInt(String.valueOf(arr[0].length()));
-        for (int i = 0; i < n; i++) {
-            System.out.println("Number and number length: " + arr[i] + " - " + arr[i].length());
-            int digits = Integer.parseInt(String.valueOf(arr[i].length()));
-            if (min > digits) {
-                min = digits;
-            }
-        }
-        System.out.println("Min number length: " + min);
-    }
-}
-*/
-
 /*public class Main {
     public static void main(String[] args) {
         System.out.println("How many n numbers do you want to enter? ");
@@ -356,22 +330,25 @@ public class Main {
         for (int i = 0; i < n; i++) {
             arr[i] = scanNumbers.next();
         }
-        int max = Integer.parseInt(String.valueOf(arr[0].length()));
-        for (int i = 0; i < n; i++) {
-            int digits = Integer.parseInt(String.valueOf(arr[i].length()));
-            System.out.println("Number and number length: " + arr[i] + " " + arr[i].length());
-            if (max<digits) {
-                max = digits;
+        String min = arr[0];
+        String max = arr[0];
+        for (int i = 1; i < n; i++) {
+            if (arr[i].length() <= min.length()) {
+                min = arr[i];
+                System.out.println(min.length());
+            }
+            if (arr[i].length() >= max.length()) {
+                max = arr[i];
             }
         }
-        System.out.println("Max number length: " + max);
+        System.out.println("Min number length: " + min.length() + "," + " number: " + min);
+        System.out.println("Max number length: " + max.length() + "," + " number: " + max);
     }
 }*/
 
 //task# 2. Упорядочить и вывести числа в порядке возрастания (убывания) значений их длины.
 
-/*
-public class Main {
+/*public class Main {
     public static void main(String[] args) {
         System.out.println("How many n numbers do you want to enter? ");
         Scanner scanNumber = new Scanner(System.in);
@@ -397,13 +374,11 @@ public class Main {
             arr[arr.length - i - 1] = temp;
         }System.out.println("Numbers length by descending: " + Arrays.toString(arr));
     }
-}
-*/
+}*/
 
 //task# 3. Вывести на консоль те числа, длина которых меньше (больше) средней, а также длину.
 
-/*
-public class Main {
+/*public class Main {
     public static void main(String[] args) {
         System.out.println("How many n numbers do you want to enter? ");
         Scanner scanNumbers = new Scanner(System.in);
@@ -414,28 +389,62 @@ public class Main {
             arr[i] = scanNumbers.next();
         }
         int sum = 0;
-        int n1 = arr.length;
         for (int i = 0; i < n; i++) {
-            int x = Integer.parseInt(String.valueOf(arr[i].length()));
-            sum += x;
+            sum += arr[i].length();
         }
-        int aver = sum / n1;
+        int aver = sum / arr.length;
         System.out.println("Length`s sum: " + sum);
         System.out.println("Average length : " + aver);
         for (int i = 0; i < n; i++) {
-            int x = Integer.parseInt(String.valueOf(arr[i].length()));
-            if (x>aver){
-                System.out.println("Number`s length more than average: " + arr[i] + " " + x);
+            if (arr[i].length()>aver){
+                System.out.println("Number`s length more than average: " + arr[i].length() + "," + " number: " + arr[i]);
             }
-            else if (x<aver){
-                System.out.println("Number`s length less than average: " + arr[i] + " " + x);
+            if (arr[i].length()<aver){
+                System.out.println("Number`s length less than average: " + arr[i].length() + "," + " number: " + arr[i]);
             }
+        }
+    }
+}*/
+
+//task# 4. Найти число, в котором число различных цифр минимально. Если таких чисел несколько, найти первое из них.
+
+/*
+public class Main {
+    public static void main(String[] args) {
+        System.out.println("How many n numbers do you want to enter? ");
+        Scanner scanNumber = new Scanner(System.in);
+        int n = scanNumber.nextInt();
+        String[] arr = new String[n];
+        System.out.println("Enter your numbers: ");
+        for (int i = 0; i < n; i++) {
+            arr[i] = scanNumber.next();
+        }
+        String result = null;
+        int outerRepDigitsAmnt = Integer.MAX_VALUE;
+        for (int i = 0; i < arr.length; i++) {
+            String[] chars = arr[i].split("");
+            Arrays.sort(chars);
+            int innerRepDigitsAmnt = 0;
+            int firstDigit = Integer.parseInt(chars[0]);
+            for (int j =1; j < chars.length ; j++) {
+                if (firstDigit == Integer.parseInt(chars[j])) {
+                    innerRepDigitsAmnt++;
+                }
+                firstDigit = Integer.parseInt(chars[j]);
+            }
+            if(outerRepDigitsAmnt > innerRepDigitsAmnt && innerRepDigitsAmnt > 0) {
+                outerRepDigitsAmnt = innerRepDigitsAmnt;
+                result = arr[i];
+            }
+        }
+        if(result != null) {
+            System.out.println(result);
         }
     }
 }
 */
 
-//task#6. Найти число, цифры в котором идут в строгом порядке возрастания. Если таких чисел несколько, найти первое из них.
+//task# 6. Найти число, цифры в котором идут в строгом порядке возрастания. Если таких чисел несколько, найти первое из них.
 
 /*public class Main {
     public static void main(String[] args) {
@@ -459,26 +468,58 @@ public class Main {
     }
 }*/
 
-//task# 8. Вывести числа от 1 до k в виде матрицы N x N слева направо и сверху вниз.
+//task#7. Найти число, состоящее только из различных цифр. Если таких чисел несколько, найти первое из них.
 
 /*
 public class Main {
     public static void main(String[] args) {
         System.out.println("How many n numbers do you want to enter? ");
-        Scanner scanNumber = new Scanner(System.in);
-        int n = scanNumber.nextInt();
+        Scanner scanNumbers = new Scanner(System.in);
+        int n = scanNumbers.nextInt();
         String[] arr = new String[n];
         System.out.println("Enter your numbers: ");
         for (int i = 0; i < n; i++) {
-            arr[i] = scanNumber.next();
+            arr[i] = scanNumbers.next();
         }
-        for (int i = 0; i < n; i++) {
-            System.out.println(Arrays.toString(arr[i].split("")));
-            System.out.println();
+        for (int i = 0;  i< arr.length; i++) {
+            String numbers = arr[i];
+            String[] chars = arr[i].split("");
+            Arrays.sort(chars);
+            boolean unique = true;
+            int firstDigits = Integer.parseInt(chars[0]);
+            for (int j = 1; j < chars.length; j++) {
+                if (firstDigits==Integer.parseInt(chars[j])){
+                    unique = false;
+                    break;
+                } firstDigits=Integer.parseInt(chars[j]);
+            }
+            if (unique){
+                System.out.println(numbers);
+                break;
+            }
         }
     }
 }
 */
+
+//task# 8. Вывести числа от 1 до k в виде матрицы N x N слева направо и сверху вниз.
+
+/*public class Main {
+    public static void main(String[] args) {
+    System.out.println("How many n numbers do you want to enter? ");
+    Scanner scanNumber = new Scanner(System.in);
+    int n = scanNumber.nextInt();
+    String[] arr = new String[n];
+    System.out.println("Enter your numbers: ");
+    for (int i = 0; i < n; i++) {
+        arr[i] = scanNumber.next();
+    }
+    for (int i = 0; i < n; i++) {
+        System.out.println(Arrays.toString(arr[i].split("")));
+        System.out.println();
+    }
+}
+}*/
 
 
 
