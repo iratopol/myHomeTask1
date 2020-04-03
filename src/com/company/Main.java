@@ -1,7 +1,4 @@
 package com.company;
-
-import java.lang.reflect.Array;
-import java.util.Arrays;
 import java.util.Scanner;
 
 //task#1 Приветствовать любого пользователя при вводе его имени через командную строку.
@@ -86,14 +83,16 @@ import java.util.Scanner;
     public static void main(String[] args) {
         int[] valueArgs = new int[args.length]; //создание пустого массива new с длинною args.length
         int sum = 0;
-        for (int i = args.length - 1; i >= 0; i--) {
+        int multResult = 1;
+        for (int i = 0; i < args.length; i++) {
             valueArgs[i] = Integer.parseInt(args[i]);
             System.out.println(valueArgs[i]);
             sum = sum + valueArgs[i];
+            multResult = multResult * valueArgs[i];
         }
-        System.out.println("Sum: " + sum);
+        System.out.println("sum = " + sum);
+        System.out.println("multResult = " + multResult);
     }
-
 }*/
 
 //task#6 Ввести с консоли n целых чисел. На консоль вывести:
@@ -407,7 +406,6 @@ public class Main {
 }*/
 
 //task# 4. Найти число, в котором число различных цифр минимально. Если таких чисел несколько, найти первое из них.
-
 /*
 public class Main {
     public static void main(String[] args) {
@@ -469,7 +467,6 @@ public class Main {
 }*/
 
 //task#7. Найти число, состоящее только из различных цифр. Если таких чисел несколько, найти первое из них.
-
 /*
 public class Main {
     public static void main(String[] args) {
@@ -520,6 +517,156 @@ public class Main {
     }
 }
 }*/
+
+/*task# 9.Ввести с консоли n-размерность матрицы a [n] [n]. Задать значения элементов
+        матрицы в интервале значений от -n до n с помощью датчика случайных чисел.*/
+//task# 9.1. Упорядочить строки (столбцы) матрицы в порядке возрастания значений.
+//task# 9.2. Выполнить циклический сдвиг заданной матрицы на k позиций вправо (влево, вверх, вниз).
+//task# 9.4. Найти сумму элементов матрицы, расположенных между первым и вторым положительными элементами каждой строки
+
+public class Main {
+    public static void main(String[] args) {
+        System.out.println("How many n number do you want to enter? ");
+        int n, k;
+        int[][] matrix, matrix1;
+
+        Scanner scanNumber = new Scanner(System.in);
+        n = scanNumber.nextInt();
+        matrix = new int[n][n];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                matrix[i][j] = (int) ((Math.random() * (2 * n + 1)) - n); //[-n;n], (int) (( Math.random() * (b - a + 1)) + a)
+            }
+        }
+        printMatrix(matrix);
+
+        System.out.println();
+
+        System.out.print("Sort by column - ");
+        k = scanNumber.nextInt();
+        matrix1 = orderMatrixRows(matrix, k);
+        printMatrix(matrix1);
+
+        System.out.println();
+
+        System.out.print("Shift for - ");
+        k = scanNumber.nextInt();
+        matrix1 = cyclicMatrixShift(matrix, k);
+        printMatrix(matrix1);
+
+        System.out.println();
+
+        System.out.print("Sum between first and second positive elements of each row: ");
+        System.out.println(sumBetweenPositiveOfMatrix(matrix));
+    }
+
+    private static void printMatrix(int[][] matrix) {
+
+        for (int[] ints : matrix) {
+            for (int anInt : ints) {
+                System.out.print(anInt + "\t");
+            }
+            System.out.println();
+        }
+    }
+
+    private static int[][] orderMatrixRows(int[][] matrix, int col) {
+
+        int[][] m = matrix.clone();
+
+        for (int i = 0; i < matrix.length - 1; i++) {
+            for (int j = i + 1; j < matrix.length; j++) {
+                if (m[i][col - 1] > m[j][col - 1]) {
+                    m = shiftRows(m, i, j);
+                }
+            }
+        }
+        return m;
+    }
+
+    private static int[][] shiftRows(int[][] matrix, int row1, int row2) {
+
+        int[][] m = matrix.clone();
+
+        int[] t = m[row1];
+        m[row1] = m[row2];
+        m[row2] = t;
+
+        return m;
+    }
+
+    private static int[][] cyclicMatrixShift(int[][] matrix, int k) {
+
+        int[][] m = matrix.clone();
+
+        for (int i = 0, matrixLength = matrix.length; i < matrixLength; i++) {
+            m[i] = cyclicRowShift(m[i], k);
+        }
+        return m;
+    }
+
+    private static int[] cyclicRowShift(int[] row, int k) {
+
+        int rowLength = row.length;
+
+        int[] r = new int[rowLength];
+        int n = (k % rowLength) + rowLength;
+
+        for (int i = 0; i < rowLength; i++) {
+            r[(i + n) % rowLength] = row[i];
+        }
+        return r;
+    }
+
+    private static int sumBetweenPositiveOfMatrix(int[][] matrix) {
+
+        int sum = 0;
+
+        for (int[] ints : matrix) {
+            sum += sumBetweenPositiveOfRow(ints);
+        }
+        return sum;
+    }
+
+    private static int sumBetweenPositiveOfRow(int[] row) {
+
+        int sum = 0;
+        int a = -1;
+        int b = -1;
+        int i = 0;
+        int rowLength = row.length;
+
+        while ((a == -1 || b == -1) & i < rowLength) {
+            if (row[i] > 0) {
+                if (a == -1) {
+                    a = i;
+                } else {
+                    b = i;
+                }
+            }
+            i++;
+        }
+        return sumBetweenTwoElements(row, a, b);
+    }
+
+    private static int sumBetweenTwoElements(int[] row, int a, int b) {
+
+        if (a == -1 || b == -1) {
+            return 0;
+        } else {
+            int sum = 0;
+            for (int i = a; i <= b; i++) {
+                sum += row[i];
+            }
+            return sum;
+        }
+    }
+}
+
+
+
+
+
 
 
 
